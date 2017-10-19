@@ -6,4 +6,5 @@ package edu.uga.cs.rentaride.entity;
 public interface Administrator 
     extends User
 {
+    //this is a test! let's see if this pushes properly
 }
