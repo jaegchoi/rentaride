@@ -2,11 +2,12 @@ package edu.uga.cs.rentaride.entity.impl;
 
 import java.util.List;
 
-import edu.uga.cs.rentaride.Vehicle;
-import edu.uga.cs.rentaride.HourlyPrice;
-import edu.uga.cs.rentaride.Reservation;
+import edu.uga.cs.rentaride.entity.Vehicle;
+import edu.uga.cs.rentaride.entity.VehicleType;
+import edu.uga.cs.rentaride.entity.HourlyPrice;
+import edu.uga.cs.rentaride.entity.Reservation;
 import edu.uga.cs.rentaride.RARException;
-import edu.uga.cs.rentaride.persistence.Persistable;
+import edu.uga.cs.rentaride.persistence.impl.Persistent;
 
 
 
