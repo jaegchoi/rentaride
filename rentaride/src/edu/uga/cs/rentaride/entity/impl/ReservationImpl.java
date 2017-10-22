@@ -3,6 +3,10 @@ package edu.uga.cs.rentaride.entity.impl;
 import java.util.Date;
 
 import edu.uga.cs.rentaride.RARException;
+import edu.uga.cs.rentaride.entity.RentalLocation;
+import edu.uga.cs.rentaride.entity.VehicleType;
+import edu.uga.cs.rentaride.entity.Customer;
+import edu.uga.cs.rentaride.entity.Rental;
 import edu.uga.cs.rentaride.persistence.impl.Persistable;
 
 
