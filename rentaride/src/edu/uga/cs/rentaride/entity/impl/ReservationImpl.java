@@ -7,7 +7,8 @@ import edu.uga.cs.rentaride.entity.RentalLocation;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.entity.Customer;
 import edu.uga.cs.rentaride.entity.Rental;
-import edu.uga.cs.rentaride.persistence.impl.Persistable;
+import edu.uga.cs.rentaride.entity.Reservation;
+import edu.uga.cs.rentaride.persistence.impl.Persistent;
 
 
 public ReservationImpl extends Persistent implements Reservation {
