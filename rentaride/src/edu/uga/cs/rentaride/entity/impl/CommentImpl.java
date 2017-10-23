@@ -8,12 +8,13 @@ import edu.uga.cs.rentaride.entity.Customer;
 import edu.uga.cs.rentaride.entity.Rental;
 
 public class CommentImpl 
-	//extends Persistent
+	extends Persistent
 	implements Comment{
 
 	private String text;
 	private Date date;
-
+	private Rental rental;
+	
 	public CommentImpl() {
 		text = null;
 		date = null;
@@ -46,18 +47,30 @@ public class CommentImpl
 
 	@Override
 	public Rental getRental() {
-		
+		//if(rental == null) {
+			if (isPersistent()) {
+				rental = getPersistenceLayer().restoreRental(this);
+			}
+		//}
 	}
 
 	@Override
 	public void setRental(Rental rental) throws RARException {
-		
+		if(rental == null) {
+			throw new RARException("Rental cannot be null");
+		}
+		else {
+			this.rental = rental;
+		}
 	}
 
 	@Override
 	public Customer getCustomer() {
-		// TODO Auto-generated method stub
-		return null;
+		//if(customer == null) {
+			if (isPersistent()) {
+				rental = getPersistenceLayer().restoreCustomer(this);
+			}
+		//}
 	}
 
 }
