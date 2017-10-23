@@ -1,7 +1,11 @@
 package edu.uga.cs.rentaride.entity.impl;
 
+import java.util.List;
+
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.RentalLocation;
+import edu.uga.cs.rentaride.entity.Reservation;
+import edu.uga.cs.rentaride.entity.Vehicle;
 
 public class RentalLocationImpl 
 	extends Persistent
@@ -10,6 +14,8 @@ public class RentalLocationImpl
 	private String name;
 	private String address;
 	private int capacity;
+	private List<Reservation> reservationList;
+	private List<Vehicle> vehicleList;
 
 	public RentalLocationImpl() {
 		name = null;
@@ -61,6 +67,28 @@ public class RentalLocationImpl
 		else {
 			this.capacity = capacity;
 		}
+	}
+
+	@Override
+	public List<Reservation> getReservations() {
+		if(reservationList == null) {
+			if (isPersistent()) {
+				Reservation reservation = new ReservationImpl();
+				reservationList = getPersistenceLayer().restoreReservation(reservation);
+			}
+		}
+		return reservationList;
+	}
+
+	@Override
+	public List<Vehicle> getVehicles() {
+		if(vehicleList == null) {
+			if (isPersistent()) {
+				Vehicle vehicle = new VehicleImpl();
+				vehicleList = getPersistenceLayer().restoreVehicle(vehicle);
+			}
+		}
+		return vehicleList;
 	}
 
 }

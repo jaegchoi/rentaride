@@ -1,8 +1,9 @@
 package edu.uga.cs.rentaride.entity;
 
-
+import java.util.List;
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.persistence.Persistable;
+
 
 /** This class represents a rental location in the Rent-A-Ride system.
  *
@@ -41,4 +42,14 @@ public interface RentalLocation
      * @throws RARException in case capacity is non-positive
      */
     public void setCapacity( int capacity ) throws RARException;
+    
+    /** Get a list of reservations made for this rental location.
+     * @return a List of reservations made for this rental location
+     */
+    public List<Reservation> getReservations();
+    
+    /** Get a List of vehicles located at this rental location.
+     * @return a List of vehicles located at this rental location
+     */
+    public List<Vehicle> getVehicles();	
 }
