@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="edu/uga/cs/rentaride/entity/impl/|edu/uga/cs/rentaride/persistence/impl/|edu/uga/cs/rentaride/object/impl/" kind="src" path=""/>
+	<classpathentry kind="src" path="edu/uga/cs/rentaride/entity/impl"/>
+	<classpathentry kind="src" path="edu/uga/cs/rentaride/object/impl"/>
+	<classpathentry kind="src" path="edu/uga/cs/rentaride/persistence/impl"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
