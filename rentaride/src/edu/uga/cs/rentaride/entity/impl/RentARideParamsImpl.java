@@ -7,28 +7,51 @@ public class RentARideParamsImpl
 	extends Persistent
 	implements RentARideParams{
 
-
+	private static RentARideParamsImpl params = null;
+	
+	private int membershipPrice;
+	private int lateFee;
+	
+	private RentARideParamsImpl() {
+		membershipPrice = -1;
+		lateFee = -1;
+	}
+	
+	public static RentARideParamsImpl getInstance() {
+		if(params == null){ 
+			params = new RentARideParamsImpl();
+		}
+		return params;
+	}
+	
 	@Override
 	public int getMembershipPrice() {
-		// TODO Auto-generated method stub
-		return 0;
+		return membershipPrice;
 	}
 
 	@Override
 	public void setMembershipPrice(int membershipPrice) throws RARException {
-		// TODO Auto-generated method stub
-		
+		if(membershipPrice < 0) {
+			throw new RARException("Membership Price must be positive");
+		}
+		else {
+			this.membershipPrice = membershipPrice;
+		}
 	}
 
 	@Override
 	public int getLateFee() {
-		// TODO Auto-generated method stub
-		return 0;
+		return lateFee;
 	}
 
 	@Override
 	public void setLateFee(int lateFee) throws RARException {
-		// TODO Auto-generated method stub
+		if(lateFee < 0) {
+			throw new RARException("Late fee must be positive");
+		}
+		else {
+			this.lateFee = lateFee;
+		}
 		
 	}
 
