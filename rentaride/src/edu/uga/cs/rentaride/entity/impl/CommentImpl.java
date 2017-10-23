@@ -14,6 +14,7 @@ public class CommentImpl
 	private String text;
 	private Date date;
 	private Rental rental;
+	private Customer customer;
 	
 	public CommentImpl() {
 		text = null;
@@ -47,11 +48,7 @@ public class CommentImpl
 
 	@Override
 	public Rental getRental() {
-		//if(rental == null) {
-			if (isPersistent()) {
-				rental = getPersistenceLayer().restoreRental(this);
-			}
-		//}
+		return rental;
 	}
 
 	@Override
@@ -66,11 +63,7 @@ public class CommentImpl
 
 	@Override
 	public Customer getCustomer() {
-		//if(customer == null) {
-			if (isPersistent()) {
-				rental = getPersistenceLayer().restoreCustomer(this);
-			}
-		//}
+		return customer;
 	}
 
 }

@@ -14,7 +14,7 @@ public class RentalLocationImpl
 	public RentalLocationImpl() {
 		name = null;
 		address = null;
-		capacity = null;
+		capacity = -1;
 	}
 	
 	public RentalLocationImpl(String name, String address, int capacity) {
