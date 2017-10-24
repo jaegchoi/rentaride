@@ -1,4 +1,3 @@
-
 package edu.uga.cs.rentaride.persistence.impl;
 
 import java.sql.Connection;
@@ -141,6 +140,37 @@ class RentalManager
             throw new RARException( "RentalManager.save: failed to save a Rental: " + e );
         }//catch
     }//save
+    
+    
+    public void delete(Rental rental)
+            throws RARException
+    {
+        String               deleteRentalSql = "delete from Rental where id = ?";
+        PreparedStatement    stmt = null;
+        int                  inscnt;
+
+        if( !rental.isPersistent() )
+            return;
+
+        else{
+        
+        try {
+            stmt = (PreparedStatement) conn.prepareStatement( deleteRentalSql );
+            stmt.setLong( 1, rental.getId() );
+            inscnt = stmt.executeUpdate();
+            if( inscnt == 1 ) {
+                return;
+            }
+            else
+                throw new RARException( "RentalManager.delete: failed to delete a Rental" );
+        }
+        catch( SQLException e ) {
+            e.printStackTrace();
+            throw new RARException( "RentalManager.delete: failed to delete a Rental: " + e );        }
+        }
+    }
+    
+    
     
 }//class
 
