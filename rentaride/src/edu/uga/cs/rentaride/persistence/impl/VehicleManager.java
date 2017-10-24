@@ -11,7 +11,11 @@ import java.util.List;
 
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.object.ObjectLayer;
+import edu.uga.cs.rentaride.entity.RentalLocation;
 import edu.uga.cs.rentaride.entity.Vehicle;
+import edu.uga.cs.rentaride.entity.VehicleCondition;
+import edu.uga.cs.rentaride.entity.VehicleStatus;
+import edu.uga.cs.rentaride.entity.VehicleType;
 
 
 class VehicleManager{
@@ -191,6 +195,140 @@ class VehicleManager{
 		        }
 		}
 	}
+	
+	public List<Vehicle> restore(Vehicle vehicle) 
+            throws RARException
+    {
+        //String       selectClubSql = "select id, name, address, established, founderid from club";
+        String       selectVSql = "select v.tag, v.lastServiced, v.make, v.mileage, v.model, v.rentalLocationID, " + 
+        							 " v.vehicleStatus, v.vehicleTypeId, v.year, v.vehicleCondition, v.id from Vehicle v where 1=1" ;
+        Statement    stmt = null;
+        StringBuffer query = new StringBuffer( 100 );
+        StringBuffer condition = new StringBuffer( 100 );
+        List<Vehicle>vehicles=new ArrayList<Vehicle>();
+        
+        
+        condition.setLength( 0 );
+        
+        // form the query based on the given Club object instance
+        query.append( selectVSql );
+        
+        if( vehicle != null ) {
+            if( vehicle.getId() >= 0 ) // id is unique, so it is sufficient to get a person
+                query.append( " and id = " + vehicle.getId() );
+            else if( vehicle.getRegistrationTag() != null ) // userName is unique, so it is sufficient to get a person
+                query.append( " and tag = '" + vehicle.getRegistrationTag() + "'" );
+            else {
+
+                if( vehicle.getLastServiced() != null )
+                    query.append( " and lastServiced = '" + vehicle.getLastServiced() + "'" );   
+                
+                if( vehicle.getMake() != null )
+                    query.append( " and make = '" + vehicle.getMake() + "'" );   
+                
+                if( vehicle.getMileage() != 0 )
+                    query.append( " and mileage = '" + vehicle.getMileage() + "'" );   
+                
+                if( vehicle.getModel() != null )
+                    query.append( " and model = '" + vehicle.getModel() + "'" );   
+                
+                if( vehicle.getRentalLocation() != null )
+                    query.append( " and rentalLocationID = '" + vehicle.getRentalLocation() + "'" );   
+                
+                if( vehicle.getStatus() != null )
+                    query.append( " and status = '" + vehicle.getStatus() + "'" );   
+                
+                if( vehicle.getVehicleType() != null )
+                    query.append( " and vehicleTypeID = '" + vehicle.getVehicleType() + "'" );   
+                
+                if( vehicle.getYear()!= 0 )
+                    query.append( " and year = '" + vehicle.getYear() + "'" );   
+                
+                if( vehicle.getCondition() != null )
+                    query.append( " and vehicleCondition = '" + vehicle.getCondition() + "'" );  
+                
+                /*
+                if( club.getEstablishedOn() != null ) {
+                    if( condition.length() > 0 )
+                        condition.append( " and" );
+                    condition.append( " established = '" + club.getEstablishedOn() + "'" );
+                }
+                */
+                /*
+                if( condition.length() > 0 ) {
+                    query.append(  " where " );
+                    query.append( condition );
+                }
+                */
+            }
+        }
+        
+        try {
+
+            stmt = conn.createStatement();
+            //System.out.println("stmt: " + query);
+            // retrieve the persistent Person object
+            //
+            if( stmt.execute( query.toString() ) ) { // statement returned a result
+                ResultSet rs = stmt.getResultSet();
+                long id;
+                String make;
+                String model;
+                int year;
+                int mileage;
+                String tag="";
+                Date lastServiced;
+                
+            
+                String rentalLocation;
+                String vehicleStatus;
+                String vehicleType;
+                String vehicleCondition;
+                RentalLocation rentalLoc = null; 
+                VehicleStatus vehicleStat = null;
+                VehicleType vehicleT = null;
+                VehicleCondition vehicleCond = null;
+                Vehicle vehicle1 = null;
+                
+                while(rs.next()){
+                	id = rs.getLong("1");
+                    tag = rs.getString( "tag" );
+                    lastServiced = rs.getDate( "lastServiced" );
+                    make = rs.getString( "make" );
+                    mileage = rs.getInt( "mileage");
+                    model = rs.getString( "model" );
+                    rentalLocation = rs.getString( "rentalLocationID" );
+                    vehicleStatus = rs.getString( "vehicleStatus" );
+                    vehicleType= rs.getString( "vehicleTypeID" );
+                    year = rs.getInt( "year" );
+                    vehicleCondition = rs.getString("vehicleCondition");
+                    
+                    vehicleT = objectLayer.createVehicleType(vehicleType);
+                    rentalLoc = objectLayer.createRentalLocation(rentalLocation, null, -1);
+                    vehicleCond = VehicleCondition.valueOf(vehicleCondition);
+                    vehicleStat = VehicleStatus.valueOf(vehicleStatus);
+                    
+                    
+                    
+                    Vehicle vehicle2 = objectLayer.createVehicle( make,  model, year, tag, mileage,  lastServiced, vehicleT, 
+                			  rentalLoc, vehicleCond, vehicleStat);
+                    vehicle2.setId(id);
+                    vehicles.add(vehicle2);
+                }
+                
+                
+              return vehicles;  
+            }
+        }
+        catch( Exception e ) {      // just in case...
+            throw new RARException( "VehicleManager.restore: Could not restore persistent Vehicle object; Root cause: " + e );
+        }
+
+        throw new RARException( "VehicleManager.restore: Could not restore persistent Vehicle object" );
+    }
+	
+	
+	
 	
 	
 }
