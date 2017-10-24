@@ -133,7 +133,7 @@ class VehicleManager{
 		
 		if(!vehicle.isPersistent()){
 			//if it is being created for the first time we need to assign an id
-			if(inscnt==1){
+			if(inscnt>=1){
 				String sql="select last_insert_id()";
 				if(stmt.execute(sql)){
 					//retrieve result
@@ -164,5 +164,33 @@ class VehicleManager{
 		}
 		
 	}
+	
+	public void delete(Vehicle vehicle) throws RARException{
+		String deleteVehicleSql="Delete from vehicle where id = ?";
+		PreparedStatement stmt=null;
+		int inscnt;
+		
+		if(!vehicle.isPersistent()){
+			return;//not in db so no need to delete anyways
+		}
+		
+		else{
+			try{
+				 stmt = (PreparedStatement) conn.prepareStatement( deleteVehicleSql );         
+		            stmt.setLong( 1, vehicle.getId() );
+		            inscnt = stmt.executeUpdate();          
+		            if( inscnt == 1 ) {
+		                return;
+		            }
+		            else
+		                throw new RARException( "VehicleManager.delete: failed to delete a Vehicle" );
+		        }
+		        catch( SQLException e ) {
+		            e.printStackTrace();
+		            throw new RARException( "VehicleManager.delete: failed to delete a Vehicle: " + e );       
+		        }
+		}
+	}
+	
 	
 }
