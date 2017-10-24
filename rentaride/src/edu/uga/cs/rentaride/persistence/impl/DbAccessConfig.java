@@ -8,3 +8,4 @@ public abstract class DbAccessConfig {
 	static String DB_CONNECTION_USERNAME="demo";
 	static String DB_CONNECTION_PWD="demo";
 }
+
