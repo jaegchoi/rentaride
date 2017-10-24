@@ -201,7 +201,7 @@ class VehicleManager{
     {
         //String       selectClubSql = "select id, name, address, established, founderid from club";
         String       selectVSql = "select tag, lastServiced, make, mileage, model, rentalLocationID, " + 
-        							 " vehicleStatus, vehicleTypeId, year, vehicleCondition, id from vehicle where 1=1" ;
+        							 " vehicleStatus, vehicleTypeID, year, vehicleCondition, id from vehicle where 1=1" ;
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
