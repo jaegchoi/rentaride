@@ -125,6 +125,10 @@ class VehicleManager{
 			stmt.setNull(10, java.sql.Types.VARCHAR);
 		}
 		
+		if(vehicle.isPersistent()){
+			stmt.setLong(11, vehicle.getId());
+		}
+		
 		inscnt=stmt.executeUpdate();
 		
 		if(!vehicle.isPersistent()){
