@@ -200,8 +200,8 @@ class VehicleManager{
             throws RARException
     {
         //String       selectClubSql = "select id, name, address, established, founderid from club";
-        String       selectVSql = "select v.tag, v.lastServiced, v.make, v.mileage, v.model, v.rentalLocationID, " + 
-        							 " v.vehicleStatus, v.vehicleTypeId, v.year, v.vehicleCondition, v.id from Vehicle v where 1=1" ;
+        String       selectVSql = "select tag, lastServiced, make, mileage, model, rentalLocationID, " + 
+        							 " vehicleStatus, vehicleTypeId, year, vehicleCondition, id from vehicle where 1=1" ;
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
