@@ -28,7 +28,7 @@ class RentalLocationManager {
 		throws RARException {
 		String insertLocationSql = "insert into rental location (name, address, capacity) values (?, ?, ?)";
 		
-		String updateLocationSql = "update person set name = ?, address = ?, capacity = ? where id = ?";
+		String updateLocationSql = "update rental location set name = ?, address = ?, capacity = ? where id = ?";
 		
 		PreparedStatement stmt;
 		int inscnt;
@@ -149,7 +149,7 @@ class RentalLocationManager {
 	public void delete(RentalLocation location ) 
 		throws RARException {
 		
-		String deleteLocationSql = "delete from club where id = ?";
+		String deleteLocationSql = "delete from comment where id = ?";
 		PreparedStatement stmt = null;
 		int inscnt;
 		
