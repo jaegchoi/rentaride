@@ -51,26 +51,34 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	
 
     public void deleteAdministrator(Administrator administrator){
-    	
+    	administratorManager.delete(administrator);
     }
 
     public void deleteComment(Comment comment){
-    	
+    	commentManager.delete(comment);
     }
     
     public void deleteCustomerReservation(Customer customer, Reservation reservation){
-    	
+    	Rental rental =reservation.getRental();
+    	reservation.setCustomer(null);
+    	//rental.setCustomer(null);
+    	reservationManager.save(reservation);
+    	rentalManager.save(rental);
     }
     
     public void deleteHourlyPrice(HourlyPrice hourlyPrice){
-    	
+    	hourlyPriceManager.delete(hourlyPrice);
     }
     
     public void deleteRental(Rental rental){
-    	
+    	rentalManager.delete(rental);
     }
     
-    public void deleteRentalComment(Rental rental, Comment comment){
+    public void deleteRentalComment(Rental rental, Comment comment) throws RARException{
+    	//comment.setCustomer(null);
+    	comment.setRental(null);
+    	commentManager.save(comment);
+    	
     	
     }
     
@@ -79,56 +87,61 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     }
     
     public void deleteRentalLocation(RentalLocation rentalLocation){
-    	
+    	rentalLocationManager.delete(rentalLocation);
     }
     
     public void deleteReservation(Reservation reservation){
-    	
+    	reservationManager.delete(reservation);
     }
     
-    public void deleteReservationRentalLocation(Reservation r, RentalLocation rl){
-    	
+    public void deleteReservationRentalLocation(Reservation r, RentalLocation rl) throws RARException{
+    	r.setRentalLocation(null);
+    	reservationManager.save(r);
     }
     
     public void deleteReservationVehicleType(Reservation r, VehicleType vt){
-    	
+    	r.setRentalLocation(null);
+    	reservationManager.save(r);
     }
     
-    public void deleteVehicle(Vehicle vehicle){
-    	
+    public void deleteVehicle(Vehicle vehicle) throws RARException{
+    	vehicleManager.delete(vehicle);
     }
     
     public void deleteVehicleRental(Vehicle v, Rental r){
     	
     }
     
-    public void deleteVehicleRentalLocation(Vehicle v, RentalLocation rl){
-    	
+    public void deleteVehicleRentalLocation(Vehicle v, RentalLocation rl) throws RARException{
+    	v.setRentalLocation(null);
+    	vehicleManager.store(v);
     }
     
     public void deleteVehicleType(VehicleType vt){
-    	
+    	vehicleTypeManager.delete(vt);
     }
     
     public void deleteVehicleTypeHourlyPrice(VehicleType vt, HourlyPrice hp){
     	
     }
     
-    public void deleteVehicleVehicleType(Vehicle v, VehicleType vt){
-    	
+    public void deleteVehicleVehicleType(Vehicle v, VehicleType vt) throws RARException{
+    	v.setVehicleType(null);
+    	vehicleManager.store(v);
     }
 
 
 	@Override
 	public List<Administrator> restoreAdministrator(Administrator modelAdministrator) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return administratorManager.restore(modelAdministrator);
 	}
 
 
 	@Override
 	public void storeAdministrator(Administrator administrator) throws RARException {
 		// TODO Auto-generated method stub
+		administratorManager.save(administrator);
 		
 	}
 
@@ -136,13 +149,14 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	@Override
 	public List<Customer> restoreCustomer(Customer modelCustomer) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return customerManager.restore(modelCustomer);
 	}
 
 
 	@Override
 	public void storeCustomer(Customer customer) throws RARException {
 		// TODO Auto-generated method stub
+		customerManager.save(customer);
 		
 	}
 
@@ -150,13 +164,14 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	@Override
 	public List<RentalLocation> restoreRentalLocation(RentalLocation modelRentalLocation) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return rentalLocationManager.restore(modelRentalLocation);
 	}
 
 
 	@Override
 	public void storeRentalLocation(RentalLocation rentalLocation) throws RARException {
 		// TODO Auto-generated method stub
+		rentalLocationManager.save(rentalLocation);
 		
 	}
 
@@ -164,119 +179,128 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	@Override
 	public List<Reservation> restoreReservation(Reservation modelReservation) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return reservationManager.restore( modelReservation );
 	}
 
 
 	@Override
 	public void storeReservation(Reservation reservation) throws RARException {
 		// TODO Auto-generated method stub
-		
+		reservationManager.save( reservation );
 	}
 
 
 	@Override
 	public List<Rental> restoreRental(Rental modelRental) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return rentalManager.restore( modelRental );
 	}
 
 
 	@Override
 	public void storeRental(Rental rental) throws RARException {
 		// TODO Auto-generated method stub
-		
+		rentalManager.save( rental );
 	}
 
 
 	@Override
 	public List<VehicleType> restoreVehicleType(VehicleType modelVehicleType) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return vehicleTypeManager.restore( modelVehicleType );
 	}
 
 
 	@Override
 	public void storeVehicleType(VehicleType vehicleType) throws RARException {
 		// TODO Auto-generated method stub
-		
+		vehicleTypeManager.save( vehicleType );
 	}
 
 
 	@Override
 	public List<Vehicle> restoreVehicle(Vehicle modelVehicle) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return vehicleManager.restore( modelVehicle );
 	}
 
 
 	@Override
 	public void storeVehicle(Vehicle vehicle) throws RARException {
 		// TODO Auto-generated method stub
-		
+		vehicleManager.save( vehicle );
 	}
 
 
 	@Override
 	public List<Comment> restoreComment(Comment modelComment) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return commentManager.restore( modelComment );
 	}
 
 
 	@Override
 	public void storeComment(Comment comment) throws RARException {
 		// TODO Auto-generated method stub
-		
+		commentManager.save( comment );
 	}
 
 
 	@Override
 	public List<HourlyPrice> restoreHourlyPrice(HourlyPrice modelHourlyPrice) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return hourlyPriceManager.restore( modelHourlyPrice );
 	}
 
 
 	@Override
 	public void storeHourlyPrice(HourlyPrice hourlyPrice) throws RARException {
 		// TODO Auto-generated method stub
-		
+		hourlyPriceManager.save( hourlyPrice );
 	}
 
 
 	@Override
 	public RentARideParams restoreRentARideConfig() throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return rentARideParamsManager.restore( );
 	}
 
 
 	@Override
 	public void storeRentARideConfig(RentARideParams rentARideConfig) throws RARException {
 		// TODO Auto-generated method stub
-		
+		rentARideParamsManager.save( rentARideConfig );
 	}
 
 
 	@Override
 	public void storeCustomerReservation(Customer customer, Reservation reservation) throws RARException {
 		// TODO Auto-generated method stub
-		
+		if (customer == null)
+            throw new RARException("The customer is null");
+        if (!customer.isPersistent())
+            throw new RARException("The customer is not persistent");
+        
+        Rental rental = reservation.getRental();
+        rental.setCustomer(customer);
+        reservation.setCustomer( customer );
+        reservationManager.save( reservation );
+        rentalManager.save( rental );
 	}
 
 
 	@Override
 	public Customer restoreCustomerReservation(Reservation reservation) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return reservationManager.restoreCustomerReservation( reservation );
 	}
 
 
 	@Override
 	public List<Reservation> restoreCustomerReservation(Customer customer) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return customerManager.restoreCustomerReservation( customer );
 	}
 
 
@@ -284,126 +308,164 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	public void storeReservationRentalLocation(Reservation reservation, RentalLocation rentalLocation)
 			throws RARException {
 		// TODO Auto-generated method stub
-		
+		if (rentalLocation == null)
+            throw new RARException("The rental location is null");
+        if (!rentalLocation.isPersistent())
+            throw new RARException("The rental location is not persistent");
+        
+        reservation.setRentalLocation( rentalLocation );
+        reservationManager.save( reservation );
 	}
 
 
 	@Override
 	public RentalLocation restoreReservationRentalLocation(Reservation reservation) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return reservationManager.restoreReservationRentalLocation( reservation );
 	}
 
 
 	@Override
 	public List<Reservation> restoreReservationRentalLocation(RentalLocation rentalLocation) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return rentalLocationManager.restoreReservationRentalLocation( rentalLocation );
 	}
 
 
 	@Override
 	public void storeReservationVehicleType(Reservation reservation, VehicleType vehicleType) throws RARException {
 		// TODO Auto-generated method stub
-		
+		if (vehicleType == null)
+            throw new RARException("The vehicle type is null");
+        if (!vehicleType.isPersistent())
+            throw new RARException("The vehicle type is not persistent");
+        
+        reservation.setRentalLocation( vehicleType );
+        reservationManager.save( reservation );
 	}
 
 
 	@Override
 	public VehicleType restoreReservationVehicleType(Reservation reservation) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return reservationManager.restoreReservationVehicleType(reservation );
 	}
 
 
 	@Override
 	public List<Reservation> restoreReservationVehicleType(VehicleType vehicleType) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return vehicleManager.restoreReservationVehicleType( vehicleType );
 	}
 
 
 	@Override
 	public void storeVehicleRentalLocation(Vehicle vehicle, RentalLocation rentalLocation) throws RARException {
 		// TODO Auto-generated method stub
-		
+		if (rentalLocation == null)
+            throw new RARException("The rental location is null");
+        if (!rentalLocation.isPersistent())
+            throw new RARException("The rental location is not persistent");
+        
+        vehicle.setRentalLocation( rentalLocation );
+        vehicleManager.save( vehicle );
 	}
 
 
 	@Override
 	public RentalLocation restoreVehicleRentalLocation(Vehicle vehicle) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return vehicleManager.restoreVehicleRentalLocation( vehicle );
 	}
 
 
 	@Override
 	public List<Vehicle> restoreVehicleRentalLocation(RentalLocation rentalLocation) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return rentalLocationManager.restoreVehicleRentalLocation( rentalLocation );
 	}
 
 
 	@Override
 	public void storeVehicleVehicleType(Vehicle vehicle, VehicleType vehicleType) throws RARException {
 		// TODO Auto-generated method stub
-		
+		if (vehicleType == null)
+            throw new RARException("The vehicleType is null");
+        if (!vehicleType.isPersistent())
+            throw new RARException("The vehicleType is not persistent");
+        
+        vehicle.setVehicleType( vehicleType );
+        vehicleManager.save( vehicle );
 	}
 
 
 	@Override
 	public VehicleType restoreVehicleVehicleType(Vehicle vehicle) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return vehicleManager.restoreVehicleVehicleType( vehicle );
 	}
 
 
 	@Override
 	public List<Vehicle> restoreVehicleVehicleType(VehicleType vehicleType) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return vehicleTypeManager.restoreVehicleVehicleType( vehicleType );
 	}
 
 
 	@Override
 	public void storeVehicleTypeHourlyPrice(VehicleType vehicleType, HourlyPrice hourlyPrice) throws RARException {
 		// TODO Auto-generated method stub
-		
+		if (vehicleType == null)
+            throw new RARException("The vehicleType is null");
+        if (!vehicleType.isPersistent())
+            throw new RARException("The vehicleType is not persistent");
+        
+        hourlyPrice.setVehicleType( vehicleType );
+        hourlyPriceManager.save( hourlyprice );
 	}
 
 
 	@Override
 	public VehicleType restoreVehicleTypeHourlyPrice(HourlyPrice hourlyPrice) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return hourlyPriceManager.restoreVehicleTypeHourlyPrice( hourlyPrice );
 	}
 
 
 	@Override
 	public List<HourlyPrice> restoreVehicleTypeHourlyPrice(VehicleType vehicleType) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return vehicleTypeManager.restoreVehicleTypeHourlyPrice( vehicleType );
 	}
 
 
 	@Override
 	public void storeRentalComment(Rental rental, Comment comment) throws RARException {
 		// TODO Auto-generated method stub
-		
+		if (rental == null)
+            throw new RARException("The rental is null");
+        if (!rental.isPersistent())
+            throw new RARException("The rental is not persistent");
+        
+        Customer customer = rental.getCustomer();
+        comment.setCustomer(customer);
+        comment.setRental( rental );
+        commentManager.save( comment );
 	}
 
 
 	@Override
 	public Rental restoreRentalComment(Comment comment) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return commentManager.restoreRentalComment(comment);
 	}
 
 
 	@Override
 	public List<Comment> restoreRentalComment(Rental rental) throws RARException {
 		// TODO Auto-generated method stub
-		return null;
+		return rentalManager.restoreRentalComment(rental);
 	}
 
 
@@ -448,7 +510,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 		return null;
 	}
     
-    
+    //type out restores and stores
     
     
     
