@@ -1,4 +1,3 @@
-
 package edu.uga.cs.rentaride.persistence.impl
 
 import java.sql.Connection;

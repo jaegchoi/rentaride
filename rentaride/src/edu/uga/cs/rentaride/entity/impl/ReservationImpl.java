@@ -11,7 +11,7 @@ import edu.uga.cs.rentaride.entity.Reservation;
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
 
 
-public ReservationImpl extends Persistent implements Reservation {
+public class ReservationImpl extends Persistent implements Reservation {
     public Date pickup;
     public int length;
     public boolean cancelled;
@@ -28,7 +28,7 @@ public ReservationImpl extends Persistent implements Reservation {
     this.pickup = pickup;
     this.length = length;
     this.cancelled = cancelled;
-    this.localtion = location;
+    this.location = location;
     this.type = type;
     this.customer = customer;
     this.rental = rental;

@@ -12,6 +12,7 @@ import java.util.List;
 //import com.mysql.jdbc.PreparedStatement;
 
 import edu.uga.cs.rentaride.entity.RentalLocation;
+import edu.uga.cs.rentaride.entity.Reservation;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 import edu.uga.cs.rentaride.RARException;
 
@@ -170,8 +171,8 @@ class RentalLocationManager {
 			throw new RARException("RentalLocationManager.delete: failed to delete a Rental Location: " + e);
 		}
 		
+		
 	}
-
 	
 }
 

@@ -12,7 +12,7 @@ public class RentARideParamsImpl
 	private int membershipPrice;
 	private int lateFee;
 	
-	private RentARideParamsImpl() {
+	public RentARideParamsImpl() {
 		membershipPrice = -1;
 		lateFee = -1;
 	}

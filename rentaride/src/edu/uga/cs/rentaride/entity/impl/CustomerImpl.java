@@ -1,10 +1,13 @@
 package edu.uga.cs.rentaride.entity.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import edu.uga.cs.rentaride.entity.Comment;
 import edu.uga.cs.rentaride.entity.Reservation;
 import edu.uga.cs.rentaride.entity.Rental;
+import edu.uga.cs.rentaride.entity.Customer;
+import edu.uga.cs.rentaride.RARException;
 
 public class CustomerImpl extends UserImpl implements Customer {
     private Date memberUntil;
@@ -15,6 +18,28 @@ public class CustomerImpl extends UserImpl implements Customer {
     private List<Reservation> reservations;
     private List<Comment> comments;
     private List<Rental> rentals;
+    
+    public CustomerImpl() {
+    	memberUntil = null;
+    	state = null;
+    	licenseNumber = null;
+    	cardNumber = null;
+    	cardExpiration = null;
+    	reservations = null;
+    	comments = null;
+    	rentals = null;
+    }
+    
+    public CustomerImpl (Date membershipExpiration, String licenseState, String licenseNumber,
+			String cardNumber, Date cardExpiration) {
+    	memberUntil = membershipExpiration;
+    	state = licenseState;
+    	this.licenseNumber = licenseNumber;
+    	this.cardNumber = cardNumber;
+    	this.cardExpiration = cardExpiration;
+    	
+    }
+    
     
     public Date getMemberUntil(){
         return this.memberUntil;
@@ -63,4 +88,6 @@ public class CustomerImpl extends UserImpl implements Customer {
     public List<Rental> getRentals(){
         return this.rentals;
     }
+
+
 }

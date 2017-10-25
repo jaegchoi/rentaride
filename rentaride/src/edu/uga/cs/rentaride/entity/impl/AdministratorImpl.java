@@ -11,6 +11,27 @@ public class AdministratorImpl
 	extends UserImpl
 	implements Administrator{
 
+	public AdministratorImpl() {
+		this.setFirstName(null);
+		this.setLastName(null);
+		this.setUserName(null);
+		this.setPassword(null);
+		this.setEmail(null);
+		this.setAddress(null);
+		this.setCreateDate(null);
+	}
+	
+	public AdministratorImpl(String firstName, String lastName, String userName, String password,
+			String email, String address, Date createDate) {
+			this.setFirstName(firstName);
+			this.setLastName(lastName);
+			this.setUserName(userName);
+			this.setPassword(password);
+			this.setEmail(email);
+			this.setAddress(address);
+			this.setCreateDate(createDate);
+	}
+	
 	@Override
 	public String getFirstName() {
 		// TODO Auto-generated method stub

@@ -19,7 +19,7 @@ public class VehicleTypeImpl
    public List<Vehicle> vehicleList;
    public List<Reservation> reservationList;
 
-public VheicleTypeImpl(){
+public VehicleTypeImpl(){
 }
 
 public VehicleTypeImpl(String name, HourlyPrice price, Vehicle vehicle, Reservation reservation){
