@@ -422,7 +422,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
             throw new RARException("The vehicleType is not persistent");
         
         hourlyPrice.setVehicleType( vehicleType );
-        hourlyPriceManager.save( hourlyprice );
+        hourlyPriceManager.save( hourlyPrice );
 	}
 
 
@@ -508,6 +508,13 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	public Vehicle restoreVehicleRental(Rental rental) throws RARException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public void deleteCustomer(Customer c) {
+		// TODO Auto-generated method stub
+		
 	}
     
     //type out restores and stores
