@@ -461,4 +461,7 @@ public interface ObjectLayer
      */
     public void storeRentARideParams( RentARideParams rentARideParams ) throws RARException;
 
+    public void deleteCustomer(Customer c);
+
+	public void setPersistence(PersistenceLayer persistence);
 }
