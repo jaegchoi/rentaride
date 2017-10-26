@@ -9,10 +9,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import edu.uga.cs.rentaride.entity.Customer;
+import edu.uga.cs.rentaride.entity.Rental;
+
 //import com.mysql.jdbc.PreparedStatement;
 
 import edu.uga.cs.rentaride.entity.RentalLocation;
 import edu.uga.cs.rentaride.entity.Reservation;
+import edu.uga.cs.rentaride.entity.Vehicle;
+import edu.uga.cs.rentaride.entity.VehicleCondition;
+import edu.uga.cs.rentaride.entity.VehicleStatus;
+import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 import edu.uga.cs.rentaride.RARException;
 
@@ -145,6 +152,156 @@ class RentalLocationManager {
 		catch(Exception e) {
 			throw new RARException("RentalLocationManager.restore: Could not restore persistent Rental Location object; Root cause: " + e);
 		}
+	}
+	
+	public List<Vehicle> restoreVehicle(RentalLocation location) 
+		throws RARException {
+		String selectVehicleSql = "select v.id, v.type, v.make, v.model, v.year, v.mileage, v.tag,"
+				+ "v.lastServiced, v.status, v.condition, v.location from vehicle v, rentallocation l where"
+				+ "v.locationid = l.id";
+		Statement stmt = null;
+		StringBuffer query = new StringBuffer(100);
+		StringBuffer condition = new StringBuffer(100);
+		List<Vehicle> vehicles = new ArrayList<Vehicle>();
+		
+		condition.setLength(0);
+		
+		query.append(selectVehicleSql);
+		
+		if(location != null) {
+			if(location.getId() >= 0) {
+				query.append(" and l.id = " + location.getId());
+			}
+			else if(location.getName() != null) 
+				query.append(" and l.name = '" + location.getName() + "'");
+			else {
+				if (location.getAddress() != null )
+					 condition.append(" and l.address = '" + location.getAddress() + "'");
+				if(location.getCapacity() != -1) {
+					if(condition.length() > 0)
+						condition.append(" and");
+					condition.append(" l.capacity ' '" + location.getCapacity() + "'");
+				}
+				if(condition.length() > 0) {
+					query.append(condition);
+				}
+			}
+		}
+		try {
+			stmt = conn.createStatement();
+			
+			if(stmt.execute(query.toString())) {
+				ResultSet rs = stmt.getResultSet();
+				
+				long id;
+				String make;
+				String model;
+				int year;
+				int mileage;
+				String tag;
+				Date lastServiced;
+				
+				Vehicle nextVehicle = null;
+				
+				while(rs.next()) {
+					id = rs.getLong(1);
+					make = rs.getString(2);
+					model = rs.getString(3);
+					year = rs.getInt(4);
+					mileage = rs.getInt(5);
+					tag = rs.getString(6);
+					lastServiced = rs.getDate(7);
+					
+					nextVehicle = objectLayer.createVehicle();
+					nextVehicle.setId(id);
+					nextVehicle.setMake(make);
+					nextVehicle.setModel(model);
+					nextVehicle.setYear(year);
+					nextVehicle.setMileage(mileage);
+					nextVehicle.setRegistrationTag(tag);
+					nextVehicle.setLastServiced(lastServiced);
+					nextVehicle.setRentalLocation(null);
+					
+					vehicles.add(nextVehicle);
+				}
+				return vehicles;
+			}
+		}
+		catch(Exception e) {
+			throw new RARException("RentalLocationManager.restoreVehicle: Could not restore persistent Vehicle objects; Root cause: " + e);
+		}
+		throw new RARException("RentalLocationManager.restoreVehicle: Could not restore persistent Vehicle objects");
+		
+	}
+	
+	public List<Reservation> restoreReservation(RentalLocation location) {
+
+		String selectReservationSql = "select r.id, r.pickup, r.length, r.cancelled, r.location, r.type, r.customer, "
+				+ "r.rental, l.id, l.name, l.address from reservation r, rentallocation l where r.locationid =  l.id ";
+
+		Statement stmt = null;
+		StringBuffer query = new StringBuffer(100);
+		StringBuffer condition = new StringBuffer(100);
+		List<Reservation> reservations = new ArrayList<Reservation>();
+		
+		condition.setLength(0);
+		
+		query.append(selectReservationSql);
+		
+		if(location != null) {
+			if(location.getId() >= 0) {
+				query.append(" and l.id = " + location.getId());
+			}
+			else if(location.getName() != null) 
+				query.append(" and l.name = '" + location.getName() + "'");
+			else {
+				if (location.getAddress() != null )
+					 condition.append(" and l.address = '" + location.getAddress() + "'");
+				if(location.getCapacity() != -1) {
+					if(condition.length() > 0)
+						condition.append(" and");
+					condition.append(" l.capacity ' '" + location.getCapacity() + "'");
+				}
+				if(condition.length() > 0) {
+					query.append(condition);
+				}
+			}
+		}
+		try {
+			stmt = conn.createStatement();
+			
+			if(stmt.execute(query.toString())) {
+				ResultSet rs = stmt.getResultSet();
+				
+				long id;
+				Date pickup;
+			    int length;
+			    boolean cancelled;
+			    
+			    Reservation nextReservation = null;
+				
+				while(rs.next()) {
+					id = rs.getLong(1);
+					pickup = rs.getDate(2);
+					length = rs.getInt(3);
+					cancelled = rs.getBoolean(4);
+					
+					
+					nextReservation = objectLayer.createReservation();
+					nextReservation.setId(id);
+					nextReservation.setPickupTime(pickup);
+					nextReservation.setLength(length);
+					//nextReservation.setCancelled(cancelled);
+					
+					reservations.add(nextReservation);
+				}
+				return reservations;
+			}
+		}
+		catch(Exception e) {
+			throw new RARException("RentalLocationManager.restoreReservation: Could not restore persistent Reservation objects; Root cause: " + e);
+		}
+		throw new RARException("RentalLocationManager.restoreReservation: Could not restore persistent Reservation objects");
 	}
 	
 	public void delete(RentalLocation location ) 

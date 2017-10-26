@@ -12,7 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.uga.cs.rentaride.entity.Comment;
+import edu.uga.cs.rentaride.entity.Customer;
 import edu.uga.cs.rentaride.entity.RentalLocation;
+import edu.uga.cs.rentaride.entity.Reservation;
+import edu.uga.cs.rentaride.entity.Vehicle;
 import edu.uga.cs.rentaride.entity.Rental;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 import edu.uga.cs.rentaride.persistence.Persistable;
@@ -139,6 +142,170 @@ class CommentManager {
 		catch(Exception e) {
 			throw new RARException("CommentManager.restore: Could not restore persistent Comment object; Root cause: " + e);
 		}
+	}
+	
+	public Rental restoreRental(Comment comment) 
+		throws RARException {
+		
+		String selectRentalSql = "select r.id, r.pickupTime, r.reservation, r.vehicle, r.customer,"
+				+ "r.returntime, r.charges, r.comment from rental r, comment c where "
+				+ "r.commentid = c.id";
+		Statement stmt = null;
+		StringBuffer query  = new StringBuffer(100);
+		StringBuffer condition = new StringBuffer(100);
+		
+		condition.setLength(0);
+		
+		query.append(selectRentalSql);
+		
+		if(comment != null) {
+			if(comment.getId() >= 0) {
+				query.append(" and c.id = " + comment.getId() + "'");
+			}
+			else {
+				if(comment.getText() != null) {
+					condition.append(" and c.text = '" + comment.getText() + "'");
+				}
+				if(comment.getDate() != null) {
+					condition.append(" and c.date = '" + comment.getDate() + "'");
+				}
+				if(comment.getRental() != null) {
+					condition.append(" and c.rental = '" + comment.getRental() + "'");
+				}
+				if(comment.getCustomer() != null) {
+					condition.append(" and c.customer = '" + comment.getCustomer() + "'");
+				}
+				if(condition.length() > 0) {
+					query.append(condition);
+				}
+			}
+		}
+		try {
+			
+			stmt = conn.createStatement();
+			
+			if(stmt.execute(query.toString())) {
+				
+				ResultSet rs = stmt.getResultSet();
+				
+				long id;
+				Date pickupTime;
+				Reservation reservation;
+			    Vehicle vehicle;
+			    Customer customer;
+			    Date returnTime;
+			    int charges;
+			    Comment rComment;
+			    Rental rental = null;
+			    
+			    while (rs.next()) {
+			    	id = rs.getLong(1);
+			    	pickupTime = rs.getDate(2);
+			    	returnTime = rs.getDate(3);
+			    	charges = rs.getInt(4);
+			    	
+			    	rental = objectLayer.createRental();
+			    	rental.setId(id);
+			    	rental.setPickupTime(pickupTime);
+			    	rental.setReturnTime(returnTime);
+			    	rental.setCharges(charges);
+			    }
+			    return rental;
+			}
+			else { 
+				return null;
+			}
+		}
+		catch(Exception e) {
+			throw new RARException("CommentManager.restoreRental: Could not restore persistent "
+					+ "Rental object; Root cause: " + e);
+		}
+		
+	}
+	
+	public Customer restoreCustomer(Comment comment)
+		throws RARException {
+		
+		String selectCustomerSql = "select c.id, c.memberuntil, c.state, c.licensenumber, c.cardnumber, c.cardexpiration"
+				+ "c.reservations, c.comments, c.rentals from customer c, comment t where c.commentsid = t.id";
+		
+		Statement stmt = null;
+		StringBuffer query  = new StringBuffer(100);
+		StringBuffer condition = new StringBuffer(100);
+		
+		condition.setLength(0);
+		
+		query.append(selectCustomerSql);
+		
+		if(comment != null) {
+			if(comment.getId() >= 0) {
+				query.append(" and t.id = " + comment.getId() + "'");
+			}
+			else {
+				if(comment.getText() != null) {
+					condition.append(" and t.text = '" + comment.getText() + "'");
+				}
+				if(comment.getDate() != null) {
+					condition.append(" and t.date = '" + comment.getDate() + "'");
+				}
+				if(comment.getRental() != null) {
+					condition.append(" and t.rental = '" + comment.getRental() + "'");
+				}
+				if(comment.getCustomer() != null) {
+					condition.append(" and t.customer = '" + comment.getCustomer() + "'");
+				}
+				if(condition.length() > 0) {
+					query.append(condition);
+				}
+			}
+		}
+		try {
+			
+			stmt = conn.createStatement();
+			
+			if(stmt.execute(query.toString())) {
+				
+				ResultSet rs = stmt.getResultSet();
+				
+				long id;
+				Date memberUntil;
+			    String state;
+			    String licenseNumber;
+			    String cardNumber;
+			    Date cardExpiration;
+			    List<Reservation> reservations;
+			    List<Comment> comments;
+			    List<Rental> rentals;
+			    Customer customer = null;
+			    
+			    while (rs.next()) {
+			    	id = rs.getLong(1);
+			    	memberUntil = rs.getDate(2);
+			    	state = rs.getString(3);
+			    	licenseNumber = rs.getString(4);
+			    	cardNumber = rs.getString(5);
+			    	cardExpiration = rs.getDate(6);
+			    	
+			    	customer = objectLayer.createCustomer();
+			    	customer.setId(id);
+			    	customer.setMemberUntil(memberUntil);
+			    	customer.setLicenseState(state);
+			    	customer.setLicenseNumber(licenseNumber);
+			    	customer.setCreditCardNumber(cardNumber);
+			    	customer.setCreditCardExpiration(cardExpiration);
+			    }
+			    return customer;
+			}
+			else { 
+				return null;
+			}
+		}
+		catch(Exception e) {
+			throw new RARException("CommentManager.restoreCustomer: Could not restore persistent"
+					+ "Customer object; Root cause: " + e);
+		}
+		
+		
 	}
 	
 	public void delete(Comment comment) 
