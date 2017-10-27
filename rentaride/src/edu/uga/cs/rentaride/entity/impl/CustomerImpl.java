@@ -19,7 +19,16 @@ public class CustomerImpl extends UserImpl implements Customer {
     private List<Comment> comments;
     private List<Rental> rentals;
     
+    
     public CustomerImpl() {
+        this.setFirstName(null);
+        this.setLastName(null);
+        this.setUserName(null);
+		this.setPassword(null);
+		this.setEmail(null);
+		this.setAddress(null);
+		this.setCreateDate(null);
+        this.setUserStatus(null);
     	memberUntil = null;
     	state = null;
     	licenseNumber = null;
@@ -30,8 +39,16 @@ public class CustomerImpl extends UserImpl implements Customer {
     	rentals = null;
     }
     
-    public CustomerImpl (Date membershipExpiration, String licenseState, String licenseNumber,
-			String cardNumber, Date cardExpiration) {
+    public CustomerImpl (String firstName, String lastName, String userName, String password,
+			String email, String address, Date createDate, Date membershipExpiration, String licenseState, String licenseNumber, String cardNumber, Date cardExpiration, UserStatus userStatus) {
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setUserName(userName);
+        this.setPassword(password);
+        this.setEmail(email);
+        this.setAddress(address);
+        this.setCreateDate(createDate);
+        this.setUserStatus(userStatus);
     	memberUntil = membershipExpiration;
     	state = licenseState;
     	this.licenseNumber = licenseNumber;

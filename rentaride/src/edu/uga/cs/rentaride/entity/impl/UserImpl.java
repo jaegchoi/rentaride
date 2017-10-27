@@ -4,7 +4,7 @@ import java.util.Date;
 
 import edu.uga.cs.rentaride.entity.UserStatus;
 
-public class UserImpl {
+public class UserImpl extends Persistent implements User {
     private String firstName;
     private String lastName;
     private String userName;
