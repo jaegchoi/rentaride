@@ -5,7 +5,7 @@ public abstract class DbAccessConfig {
 	static final String DB_NAME="rentaride";
 	static final String DB_SERVER_NAME="localhost";
 	static final String DB_CONNECTION_URL="jdbc:mysql://localhost:3306/rentaride";
-	static String DB_CONNECTION_USERNAME="demo";
-	static String DB_CONNECTION_PWD="demo";
+	static String DB_CONNECTION_USERNAME="team7";
+	static String DB_CONNECTION_PWD="overload";
 }
 
