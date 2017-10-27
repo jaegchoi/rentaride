@@ -39,8 +39,7 @@ public class CustomerImpl extends UserImpl implements Customer {
     	rentals = null;
     }
     
-    public CustomerImpl (String firstName, String lastName, String userName, String password,
-			String email, String address, Date createDate, Date membershipExpiration, String licenseState, String licenseNumber, String cardNumber, Date cardExpiration, UserStatus userStatus) {
+    public CustomerImpl (String firstName, String lastName, String userName, String password, String email, String address, Date createDate, Date membershipExpiration, String licenseState, String licenseNumber,String cardNumber, Date cardExpiration) {
         this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setUserName(userName);
