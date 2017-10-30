@@ -6,6 +6,7 @@ import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.RentalLocation;
 import edu.uga.cs.rentaride.entity.Reservation;
 import edu.uga.cs.rentaride.entity.Vehicle;
+import edu.uga.cs.rentaride.persistence.impl.Persistent;
 
 public class RentalLocationImpl 
 	extends Persistent
@@ -68,9 +69,9 @@ public class RentalLocationImpl
 			this.capacity = capacity;
 		}
 	}
-
+	
 	@Override
-	public List<Reservation> getReservations() {
+	public List<Reservation> getReservations() throws RARException {
 		if(reservationList == null) {
 			if (isPersistent()) {
 				Reservation reservation = new ReservationImpl();
@@ -81,7 +82,7 @@ public class RentalLocationImpl
 	}
 
 	@Override
-	public List<Vehicle> getVehicles() {
+	public List<Vehicle> getVehicles() throws RARException {
 		if(vehicleList == null) {
 			if (isPersistent()) {
 				Vehicle vehicle = new VehicleImpl();
@@ -90,5 +91,6 @@ public class RentalLocationImpl
 		}
 		return vehicleList;
 	}
-
+	
 }
+
