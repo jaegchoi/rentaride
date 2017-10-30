@@ -20,7 +20,7 @@ public class HourlyPriceImpl
    public HourlyPriceImpl(int maxHours, int price, VehicleType vehicle){
       this.maxHours = maxHours;
       this.price = price;
-      this.vehicle = vehicle;
+      this.type = vehicle;
    
    }
     
@@ -38,14 +38,14 @@ public void setMaxHours( int maxHours ) throws RARException{
     public int getPrice(){
     return price;
     }
-    @OVerride
+    @Override
     public void setPrice( int price ) throws RARException{
       this.price = price;
     }
     
     @Override
     public VehicleType getVehicleType(){
-      return vehicleType;
+      return type;
     }
 
 @Override
