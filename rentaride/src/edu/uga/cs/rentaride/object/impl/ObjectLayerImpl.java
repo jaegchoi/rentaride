@@ -16,7 +16,17 @@ import edu.uga.cs.rentaride.entity.Vehicle;
 import edu.uga.cs.rentaride.entity.VehicleCondition;
 import edu.uga.cs.rentaride.entity.VehicleStatus;
 import edu.uga.cs.rentaride.entity.VehicleType;
+import edu.uga.cs.rentaride.entity.impl.AdministratorImpl;
+import edu.uga.cs.rentaride.entity.impl.CommentImpl;
+import edu.uga.cs.rentaride.entity.impl.CustomerImpl;
+import edu.uga.cs.rentaride.entity.impl.HourlyPriceImpl;
+import edu.uga.cs.rentaride.entity.impl.RentARideParamsImpl;
+import edu.uga.cs.rentaride.entity.impl.RentalImpl;
+import edu.uga.cs.rentaride.entity.impl.RentalLocationImpl;
 import edu.uga.cs.rentaride.entity.impl.ReservationImpl;
+import edu.uga.cs.rentaride.entity.impl.VehicleImpl;
+import edu.uga.cs.rentaride.entity.impl.VehicleTypeImpl;
+import edu.uga.cs.rentaride.entity.Reservation;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 import edu.uga.cs.rentaride.persistence.PersistenceLayer;
 import edu.uga.cs.rentaride.persistence.impl.Persistent;
@@ -45,7 +55,7 @@ public class ObjectLayerImpl implements ObjectLayer{
 	}
 
 	@Override
-	public Administrator createAdministrator() {
+	public Administrator createAdministrator() throws RARException {
 		AdministratorImpl admin = new AdministratorImpl();
 		admin.setId(-1);
 		return admin;
@@ -72,8 +82,12 @@ public class ObjectLayerImpl implements ObjectLayer{
 			String address, Date createDate, Date membershipExpiration, String licenseState, String licenseNumber,
 			String cardNumber, Date cardExpiration) throws RARException {
 		
-		CustomerImpl customer = new CustomerImpl(membershipExpiration,
-				licenseState, licenseNumber, cardNumber, cardExpiration);
+		//CustomerImpl customer = new CustomerImpl(membershipExpiration,
+			//	licenseState, licenseNumber, cardNumber, cardExpiration);
+		
+		CustomerImpl customer= new CustomerImpl( firstName, lastName, userName, password, 
+				 email,  address,  createDate,  membershipExpiration,  licenseState,  licenseNumber,
+				 cardNumber,  cardExpiration);
 		customer.setFirstName(firstName);
 		customer.setLastName(lastName);
 		customer.setUserName(userName);
@@ -86,7 +100,7 @@ public class ObjectLayerImpl implements ObjectLayer{
 	}
 
 	@Override
-	public Customer createCustomer() {
+	public Customer createCustomer() throws RARException {
 		CustomerImpl customer = new CustomerImpl();
 		customer.setId(-1);
 		Persistent.setPersistenceLayer(persistence);
@@ -336,7 +350,7 @@ public class ObjectLayerImpl implements ObjectLayer{
 	}
 
 	@Override
-	public RentARideParams findRentARideParams() {
+	public RentARideParams findRentARideParams() throws RARException {
 		return persistence.restoreRentARideConfig();
 	}
 
