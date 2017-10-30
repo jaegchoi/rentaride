@@ -23,7 +23,7 @@ import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 
 
-class ReservationManager
+public class ReservationManager
 {
     private ObjectLayer objectLayer = null;
     private Connection   conn = null;
@@ -167,7 +167,7 @@ class ReservationManager
     }
     
     
-    public List<Reserrvation> restore(Reservation reservation) 
+    public List<Reservation> restore(Reservation reservation) 
             throws RARException
     {
         //String       selectClubSql = "select id, name, address, established, founderid from club";
@@ -176,7 +176,7 @@ class ReservationManager
         Statement    stmt = null;
         StringBuffer query = new StringBuffer( 100 );
         StringBuffer condition = new StringBuffer( 100 );
-        List<Reservation>reservation=new ArrayList<Reservation>();
+        List<Reservation>reservations=new ArrayList<Reservation>();
         
         
         condition.setLength( 0 );
@@ -195,7 +195,7 @@ class ReservationManager
                 if( reservation.getLength() != null )
                     query.append( " and length = '" + reservation.getLength() + "'" );   
                 
-                if( reserrvation.getCancelled() != 0 )
+                if( reservation.getCancelled() != 0 )
                     query.append( " and charges = '" + reservation.getCancelled() + "'" );   
                 
                 if( reservation.getRental() != null )
@@ -205,7 +205,7 @@ class ReservationManager
                     query.append( " and customerID = '" + reservation.getCustomer() + "'" );   
                 
                 if( reservation.getVehicleType()!=null)
-                	query.append(" and vehicleTyeID = '" + resevation.getVehicleType() + "'" );     
+                	query.append(" and vehicleTyeID = '" + reservation.getVehicleType() + "'" );     
                 
             }
         }
@@ -255,7 +255,7 @@ class ReservationManager
                 }
                 
                 
-              return reservation;  
+              return reservations;  
             }
         }
         catch( Exception e ) {      // just in case...
@@ -264,6 +264,21 @@ class ReservationManager
 
         throw new RARException( "ReservationManager.restore: Could not restore persistent Reservation object" );
     }
+
+	public Customer restoreCustomerReservation(Reservation reservation) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public RentalLocation restoreReservationRentalLocation(Reservation reservation) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public VehicleType restoreReservationVehicleType(Reservation reservation) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
     
     
