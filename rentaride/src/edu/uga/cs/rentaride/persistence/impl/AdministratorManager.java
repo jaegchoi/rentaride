@@ -120,7 +120,7 @@ class AdministratorManager
         }
     }
 
-    public Administrator restore(Administrator administrator)
+    public List<Administrator> restore(Administrator administrator)
             throws RARException
     {
         String       selectASql = "select a.createdDate, a.emailAddress, a.firstName, a.lastName, a.password, a.residenceAddress, a.userName, a.userStatus " +
@@ -206,7 +206,7 @@ class AdministratorManager
                     		,emailAddress, address,createDate);
         			administrator.setId( id );
 
-                    return administrator;
+                    return (List<Administrator>) administrator;
                 }
                 
                 
@@ -245,4 +245,3 @@ class AdministratorManager
             throw new RARException( "AdministratorManager.delete: failed to delete a Administrator: " + e );        }
     }
 }
-
