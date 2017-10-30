@@ -127,3 +127,4 @@ public class RentalImpl extends Persistent implements Rental {
 	
 }
 
+
