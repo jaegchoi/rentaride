@@ -1,4 +1,4 @@
-package edu.uga.cs.rentaride.persistence.impl
+package edu.uga.cs.rentaride.persistence.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -129,6 +129,8 @@ class RentARideParamsManager {
 		catch(Exception e) {
 			throw new RARException("RentARideParamsManager.restore: Could not restore persistent RentARideParams object; Root cause: " + e);
 		}
+		
+		return params;
 	}
 	
 	public void delete(RentARideParams param) 
@@ -154,5 +156,10 @@ class RentARideParamsManager {
 			e.printStackTrace();
 			throw new RARException("RentARideParamsManager.delete: failed to delete a RentARideParams: " + e);
 		}
+	}
+
+	public RentARideParams restore() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
