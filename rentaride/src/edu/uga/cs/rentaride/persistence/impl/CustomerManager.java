@@ -1,4 +1,4 @@
-package edu.uga.cs.rentaride.persistence.impl
+package edu.uga.cs.rentaride.persistence.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,8 +15,9 @@ import java.util.List;
 import edu.uga.cs.rentaride.entity.UserStatus;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 import edu.uga.cs.rentaride.RARException;
+import edu.uga.cs.rentaride.entity.Customer;
 
-class CustomerManager {
+public class CustomerManager {
 	private ObjectLayer objectLayer = null;
 	private Connection conn = null;
 	
@@ -25,7 +26,7 @@ class CustomerManager {
 		this.objectLayer = objectLayer;
 	}
 	
-	public void save(CustomerManager customer) 
+	public void save(Customer customer) 
 		throws RARException {
 		String insertCustomerSql = "insert into customer (firstName, lastName, customerName, email, password, createDate, address, userStatus, memberUntil, state, licenseNumber, cardNumber, cardExpiration) values (?, ?, ?, ?, ?, ?, ?, ?)";
 		
@@ -158,7 +159,7 @@ class CustomerManager {
 					query.append(condition);
 				}
 			}
-		}
+		
 		
 		try {
 			
