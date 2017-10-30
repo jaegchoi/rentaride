@@ -334,4 +334,9 @@ class CommentManager {
 			throw new RARException("CommentManager.delete: failed to delete a Comment: " + e);
 		}
 	}
+
+	public Rental restoreRentalComment(Comment comment) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
