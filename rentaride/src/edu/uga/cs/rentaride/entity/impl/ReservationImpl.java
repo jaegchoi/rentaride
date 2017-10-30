@@ -82,7 +82,7 @@ public class ReservationImpl extends Persistent implements Reservation {
     public Rental getRental(){
      return rental; 
     }
-@override
+@Override
     public void setRental( Rental rental ){
       this.rental = rental;  
     }
