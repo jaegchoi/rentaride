@@ -228,4 +228,9 @@ class HourlyPriceManager {
 			throw new RARException("HourlyPriceManager.delete: failed to delete a HourlyPrice: " + e);
 		}
 	}
+
+	public VehicleType restoreVehicleTypeHourlyPrice(HourlyPrice hourlyPrice) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
