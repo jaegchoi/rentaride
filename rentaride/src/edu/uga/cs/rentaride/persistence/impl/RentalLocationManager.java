@@ -1,4 +1,4 @@
-package edu.uga.cs.rentaride.persistence.impl
+package edu.uga.cs.rentaride.persistence.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -133,13 +133,14 @@ class RentalLocationManager {
 				ResultSet rs = stmt.getResultSet();
 				long id;
 				String name;
-				String address;
+				String address = null;
 				int capacity;
 				
 				while(rs.next()) {
 					id = rs.getLong(1);
 					name = rs.getString(2);
-					capacity = rs.getInt(3);
+					address=rs.getString(3);
+					capacity = rs.getInt(4);
 					
 					RentalLocation location = objectLayer.createRentalLocation(name, address, capacity);
 					location.setId(id);
@@ -152,6 +153,7 @@ class RentalLocationManager {
 		catch(Exception e) {
 			throw new RARException("RentalLocationManager.restore: Could not restore persistent Rental Location object; Root cause: " + e);
 		}
+		return locations;
 	}
 	
 	public List<Vehicle> restoreVehicle(RentalLocation location) 
@@ -226,15 +228,17 @@ class RentalLocationManager {
 				}
 				return vehicles;
 			}
+			
 		}
 		catch(Exception e) {
 			throw new RARException("RentalLocationManager.restoreVehicle: Could not restore persistent Vehicle objects; Root cause: " + e);
 		}
 		throw new RARException("RentalLocationManager.restoreVehicle: Could not restore persistent Vehicle objects");
 		
+
 	}
 	
-	public List<Reservation> restoreReservation(RentalLocation location) {
+	public List<Reservation> restoreReservation(RentalLocation location) throws RARException {
 
 		String selectReservationSql = "select r.id, r.pickup, r.length, r.cancelled, r.location, r.type, r.customer, "
 				+ "r.rental, l.id, l.name, l.address from reservation r, rentallocation l where r.locationid =  l.id ";
@@ -329,6 +333,16 @@ class RentalLocationManager {
 		}
 		
 		
+	}
+
+	public List<Reservation> restoreReservationRentalLocation(RentalLocation rentalLocation) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Vehicle> restoreVehicleRentalLocation(RentalLocation rentalLocation) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
