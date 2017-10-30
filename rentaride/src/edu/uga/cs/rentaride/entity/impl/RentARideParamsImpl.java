@@ -2,6 +2,7 @@ package edu.uga.cs.rentaride.entity.impl;
 
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.RentARideParams;
+import edu.uga.cs.rentaride.persistence.impl.Persistent;
 
 public class RentARideParamsImpl 
 	extends Persistent
