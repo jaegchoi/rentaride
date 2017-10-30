@@ -11,6 +11,7 @@ import java.util.List;
 import java.sql.PreparedStatement;
 
 import edu.uga.cs.rentaride.RARException;
+import edu.uga.cs.rentaride.entity.Comment;
 import edu.uga.cs.rentaride.entity.Customer;
 import edu.uga.cs.rentaride.entity.Rental;
 import edu.uga.cs.rentaride.entity.RentalLocation;
@@ -22,7 +23,7 @@ import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 
 
-class RentalManager
+public class RentalManager
 {
     private ObjectLayer objectLayer = null;
     private Connection   conn = null;
@@ -289,6 +290,11 @@ class RentalManager
 
         throw new RARException( "VehicleManager.restore: Could not restore persistent Vehicle object" );
     }
+
+	public List<Comment> restoreRentalComment(Rental rental) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
     
     
