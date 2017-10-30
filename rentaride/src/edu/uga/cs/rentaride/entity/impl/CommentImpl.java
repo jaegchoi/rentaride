@@ -6,6 +6,7 @@ import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.Comment;
 import edu.uga.cs.rentaride.entity.Customer;
 import edu.uga.cs.rentaride.entity.Rental;
+import edu.uga.cs.rentaride.persistence.impl.Persistent;
 
 public class CommentImpl 
 	extends Persistent
@@ -64,6 +65,30 @@ public class CommentImpl
 	@Override
 	public Customer getCustomer() {
 		return customer;
+	}
+
+	@Override
+	public long getId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setId(long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isPersistent() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setCustomer(Customer customer) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
