@@ -12,13 +12,14 @@ import java.util.List;
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 import edu.uga.cs.rentaride.entity.RentalLocation;
+import edu.uga.cs.rentaride.entity.Reservation;
 import edu.uga.cs.rentaride.entity.Vehicle;
 import edu.uga.cs.rentaride.entity.VehicleCondition;
 import edu.uga.cs.rentaride.entity.VehicleStatus;
 import edu.uga.cs.rentaride.entity.VehicleType;
 
 
-class VehicleManager{
+public class VehicleManager{
 	
 	private ObjectLayer objectLayer=null;
 	private Connection conn=null;
@@ -326,6 +327,21 @@ class VehicleManager{
 
         throw new RARException( "VehicleManager.restore: Could not restore persistent Vehicle object" );
     }
+
+
+	public RentalLocation restoreVehicleRentalLocation(Vehicle vehicle) {
+		return null;
+
+	}
+
+	public VehicleType restoreVehicleVehicleType(Vehicle vehicle) {
+		return null;
+	}
+
+	public List<Reservation> restoreReservationVehicleType(VehicleType vehicleType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	
