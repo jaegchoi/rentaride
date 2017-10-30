@@ -11,7 +11,7 @@ public class AdministratorImpl
 	extends UserImpl
 	implements Administrator{
 
-	public AdministratorImpl() {
+	public AdministratorImpl() throws RARException {
 		this.setFirstName(null);
 		this.setLastName(null);
 		this.setUserName(null);
@@ -22,7 +22,7 @@ public class AdministratorImpl
 	}
 	
 	public AdministratorImpl(String firstName, String lastName, String userName, String password,
-			String email, String address, Date createDate) {
+			String email, String address, Date createDate) throws RARException {
 			this.setFirstName(firstName);
 			this.setLastName(lastName);
 			this.setUserName(userName);
