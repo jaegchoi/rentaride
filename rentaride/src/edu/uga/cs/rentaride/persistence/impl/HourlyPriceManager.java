@@ -1,5 +1,5 @@
 
-package edu.uga.cs.rentaride.persistence.impl
+package edu.uga.cs.rentaride.persistence.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,6 +13,7 @@ import java.util.List;
 
 import edu.uga.cs.rentaride.entity.Comment;
 import edu.uga.cs.rentaride.entity.Customer;
+import edu.uga.cs.rentaride.entity.HourlyPrice;
 import edu.uga.cs.rentaride.entity.VehicleType;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 import edu.uga.cs.rentaride.persistence.Persistable;
@@ -27,7 +28,7 @@ class HourlyPriceManager {
 		this.objectLayer = objectLayer;
 	}
 
-	public void save(HourlyPrice Hourlyprice) 
+	public void save(HourlyPrice hourlyPrice) 
 		throws RARException {
 		String insertHourlyPriceSql = "insert into hourlyPrice (maxHrs, price) values (?, ?)";
 		
@@ -38,13 +39,13 @@ class HourlyPriceManager {
 		long hourlyPriceId;
 		
 		try {
-			if (!HourlyPrice.isPersistent()) 
+			if (!hourlyPrice.isPersistent()) 
 				stmt = (PreparedStatement) conn.prepareStatement(insertHourlyPriceSql);
 			else
 				stmt = (PreparedStatement) conn.prepareStatement(updateHourlyPriceSql);
 			
-			if (hourlyPrice.getMaxHrs() != null)
-				stmt.setInt(1, hourlyPrice.getMaxHrs());
+			if (hourlyPrice.getMaxHours() != null)
+				stmt.setInt(1, hourlyPrice.getMaxHours());
 			else 
 				throw new RARException("HourlyPriceManager.save: can't save a HourlyPrice: maxHrs undefined");
 			
@@ -97,12 +98,11 @@ class HourlyPriceManager {
 		if(modelHourlyPrice !=null) {
 			if(modelHourlyPrice.getId() >= 0) 
 				query.append(" where id = " + modelHourlyPrice.getId());
-			else if(modelHourlyPrice.getmaxHrs() != null) 
-				query.append(" where max hours = '" + modelHourlyPrice.getMaxhrs() + "'");
+			else if(modelHourlyPrice.getMaxHours() != null) 
+				query.append(" where max hours = '" + modelHourlyPrice.getMaxHours() + "'");
 			else {
 				query.append(" where price = '" + modelHourlyPrice.getPrice() + "'");
 				}
-			}
 		}
 		try {
 			
@@ -121,7 +121,7 @@ class HourlyPriceManager {
 					price = rs.getInt(3);
 					//Not sure how to get Rental
 					
-					HourlyPrice price = objectLayer.createHourlyPrice(maxHrs, price, vehicelType);
+					HourlyPrice price = objectLayer.createHourlyPrice(maxHrs, price, vehicleType);
 					hourlyPrice.setId(id);
 					
 					hourlyPrice.add(hourlyPrice);
@@ -152,8 +152,8 @@ class HourlyPriceManager {
 				query.append(" and c.id = " + hourlyPrice.getId() + "'");
 			}
 			else {
-				if(hourlyPrice.getMaxHrs() != null) {
-					condition.append(" and c.maxHrs = '" + hourlyPrice.getMaxhrs() + "'");
+				if(hourlyPrice.getMaxHours() != null) {
+					condition.append(" and c.maxHrs = '" + hourlyPrice.getMaxHours() + "'");
 				}
 				if(hourlyPrice.getPrice() != null) {
 					condition.append(" and c.price = '" + hourlyPrice.getPrice() + "'");
@@ -183,7 +183,7 @@ class HourlyPriceManager {
 			    
 			    while (rs.next()) {
 			    	id = rs.getLong(1);
-			    	maxhrs = rs.getInt(2);
+			    	maxHrs = rs.getInt(2);
 			    	price = rs.getInt(3);
 			    	
 			    	
