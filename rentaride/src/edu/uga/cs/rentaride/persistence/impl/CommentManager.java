@@ -1,5 +1,5 @@
 
-package edu.uga.cs.rentaride.persistence.impl
+package edu.uga.cs.rentaride.persistence.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -123,7 +123,7 @@ class CommentManager {
 				long id;
 				String text;
 				Date date;
-				Rental rental;
+				Rental rental = null;
 				
 				while(rs.next()) {
 					id = rs.getLong(1);
@@ -142,6 +142,8 @@ class CommentManager {
 		catch(Exception e) {
 			throw new RARException("CommentManager.restore: Could not restore persistent Comment object; Root cause: " + e);
 		}
+		
+		return comments;
 	}
 	
 	public Rental restoreRental(Comment comment) 
