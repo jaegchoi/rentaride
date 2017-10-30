@@ -20,7 +20,7 @@ public class CustomerImpl extends UserImpl implements Customer {
     private List<Rental> rentals;
     
     
-    public CustomerImpl() {
+    public CustomerImpl() throws RARException {
         this.setFirstName(null);
         this.setLastName(null);
         this.setUserName(null);
@@ -39,7 +39,7 @@ public class CustomerImpl extends UserImpl implements Customer {
     	rentals = null;
     }
     
-    public CustomerImpl (String firstName, String lastName, String userName, String password, String email, String address, Date createDate, Date membershipExpiration, String licenseState, String licenseNumber,String cardNumber, Date cardExpiration) {
+    public CustomerImpl (String firstName, String lastName, String userName, String password, String email, String address, Date createDate, Date membershipExpiration, String licenseState, String licenseNumber,String cardNumber, Date cardExpiration) throws RARException {
         this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setUserName(userName);
@@ -47,7 +47,7 @@ public class CustomerImpl extends UserImpl implements Customer {
         this.setEmail(email);
         this.setAddress(address);
         this.setCreateDate(createDate);
-        this.setUserStatus(userStatus);
+        this.setUserStatus(getUserStatus());
     	memberUntil = membershipExpiration;
     	state = licenseState;
     	this.licenseNumber = licenseNumber;
@@ -104,6 +104,30 @@ public class CustomerImpl extends UserImpl implements Customer {
     public List<Rental> getRentals(){
         return this.rentals;
     }
+
+	@Override
+	public long getId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setId(long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isPersistent() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setCreditCardExpiration(Date cardExpiration) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 }
