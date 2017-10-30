@@ -50,15 +50,15 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     }
 	
 
-    public void deleteAdministrator(Administrator administrator){
+    public void deleteAdministrator(Administrator administrator) throws RARException{
     	administratorManager.delete(administrator);
     }
 
-    public void deleteComment(Comment comment){
+    public void deleteComment(Comment comment) throws RARException{
     	commentManager.delete(comment);
     }
     
-    public void deleteCustomerReservation(Customer customer, Reservation reservation){
+    public void deleteCustomerReservation(Customer customer, Reservation reservation) throws RARException{
     	Rental rental =reservation.getRental();
     	reservation.setCustomer(null);
     	//rental.setCustomer(null);
@@ -66,11 +66,11 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     	rentalManager.save(rental);
     }
     
-    public void deleteHourlyPrice(HourlyPrice hourlyPrice){
+    public void deleteHourlyPrice(HourlyPrice hourlyPrice) throws RARException{
     	hourlyPriceManager.delete(hourlyPrice);
     }
     
-    public void deleteRental(Rental rental){
+    public void deleteRental(Rental rental) throws RARException{
     	rentalManager.delete(rental);
     }
     
@@ -86,11 +86,11 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     	
     }
     
-    public void deleteRentalLocation(RentalLocation rentalLocation){
+    public void deleteRentalLocation(RentalLocation rentalLocation) throws RARException{
     	rentalLocationManager.delete(rentalLocation);
     }
     
-    public void deleteReservation(Reservation reservation){
+    public void deleteReservation(Reservation reservation) throws RARException{
     	reservationManager.delete(reservation);
     }
     
@@ -99,7 +99,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     	reservationManager.save(r);
     }
     
-    public void deleteReservationVehicleType(Reservation r, VehicleType vt){
+    public void deleteReservationVehicleType(Reservation r, VehicleType vt) throws RARException{
     	r.setRentalLocation(null);
     	reservationManager.save(r);
     }
@@ -117,7 +117,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
     	vehicleManager.store(v);
     }
     
-    public void deleteVehicleType(VehicleType vt){
+    public void deleteVehicleType(VehicleType vt) throws RARException{
     	vehicleTypeManager.delete(vt);
     }
     
@@ -228,7 +228,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
 	@Override
 	public void storeVehicle(Vehicle vehicle) throws RARException {
 		// TODO Auto-generated method stub
-		vehicleManager.save( vehicle );
+		vehicleManager.store( vehicle );
 	}
 
 
@@ -340,7 +340,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
         if (!vehicleType.isPersistent())
             throw new RARException("The vehicle type is not persistent");
         
-        reservation.setRentalLocation( vehicleType );
+        reservation.setRentalLocation(null);
         reservationManager.save( reservation );
 	}
 
@@ -368,7 +368,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
             throw new RARException("The rental location is not persistent");
         
         vehicle.setRentalLocation( rentalLocation );
-        vehicleManager.save( vehicle );
+        vehicleManager.store( vehicle );
 	}
 
 
@@ -395,7 +395,7 @@ public class PersistenceLayerImpl implements PersistenceLayer {
             throw new RARException("The vehicleType is not persistent");
         
         vehicle.setVehicleType( vehicleType );
-        vehicleManager.save( vehicle );
+        vehicleManager.store( vehicle );
 	}
 
 
