@@ -1,5 +1,5 @@
 
-package edu.uga.cs.rentaride.persistence.impl
+package edu.uga.cs.rentaride.persistence.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import edu.uga.cs.rentaride.entity.Customer;
+import edu.uga.cs.rentaride.entity.HourlyPrice;
 import edu.uga.cs.rentaride.entity.Rental;
 
 //import com.mysql.jdbc.PreparedStatement;
@@ -46,17 +47,17 @@ class VehicleTypeManager {
 		try {
 			
 			if (!type.isPersistent()) 
-				stmt = (PreparedStatement) conn.prepareStatement(insertVehicleTypeSql);
+				stmt = (PreparedStatement) conn.prepareStatement(insertLocationSql);
 			else
-				stmt = (PreparedStatement) conn.prepareStatement(updateVehicleTypeSql);
+				stmt = (PreparedStatement) conn.prepareStatement(updateLocationSql);
 			
 			if (type.getName() != null)
 				stmt.setString(1, type.getName());
 			else 
 				throw new RARException("VehicleTypeManager.save: can't save a Rental Location: name undefined");
 			
-			if (type.getHourlyPrice() != null) 
-				stmt.setString(2, type.getHourlyPrice());
+			if (type.getHourlyPrices() != null) 
+				stmt.setString(2, type.getHourlyPrices());
 			else 
 				throw new RARException("RentalLocationManager.save: can't save a Rental Location: address undefined");
 			
@@ -122,17 +123,17 @@ class VehicleTypeManager {
 				ResultSet rs = stmt.getResultSet();
 				long id;
 				String name;
-        HourlyPrice hourlyPrice;
+				HourlyPrice hourlyPrice;
 				
 				while(rs.next()) {
 					id = rs.getLong(1);
 					name = rs.getString(2);
-					price = rs.getHourlyPrice(3);
+					hourlyPrice = rs.getHourlyPrices(3);
 					
 					VehicleType type = objectLayer.createVehicleType(name);
 					type.setId(id);
 					
-					type.add(type);
+					types.add(type);
 				}
 				return types;
 			}
@@ -169,5 +170,16 @@ class VehicleTypeManager {
 		
 		
 	}
+
+	public List<Vehicle> restoreVehicleVehicleType(VehicleType vehicleType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<HourlyPrice> restoreVehicleTypeHourlyPrice(VehicleType vehicleType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
+
