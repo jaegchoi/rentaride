@@ -1,10 +1,13 @@
+package edu.uga.cs.rentaride.entity.impl;
+
 
 
 import java.util.Date;
 
+import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.UserStatus;
 
-public class UserImpl extends Persistent implements User {
+public class UserImpl {
     private String firstName;
     private String lastName;
     private String userName;
@@ -49,7 +52,7 @@ public class UserImpl extends Persistent implements User {
         return userName;
     }
     
-    public void setUserName(String userName){
+    public void setUserName(String userName) throws RARException{
         this.userName = userName;
     }
     
