@@ -145,4 +145,3 @@ public class VehicleImpl extends Persistent implements Vehicle {
 	
 }
 
-
