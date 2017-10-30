@@ -1,4 +1,4 @@
-package edu.uga.cs.rentaride.persistence.impl
+package edu.uga.cs.rentaride.persistence.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import edu.uga.cs.rentaride.entity.User;
 
 //import com.mysql.jdbc.PreparedStatement;
 
@@ -25,7 +27,7 @@ class UserManager {
 		this.objectLayer = objectLayer;
 	}
 	
-	public void save(UserManager user) 
+	public void save(User user) 
 		throws RARException {
 		String insertUserSql = "insert into user (firstName, lastName, userName, email, password, createDate, address, userStatus) values (?, ?, ?, ?, ?, ?, ?, ?)";
 		
@@ -68,8 +70,8 @@ class UserManager {
 			else 
 				throw new RARException("UserManager.save: can't save a User: password undefined");
             
-            if (user.getCreateDate() != null)
-				stmt.setDate(1, user.getCreateDate());
+            if (user.getCreatedDate() != null)
+				stmt.setDate(1, (java.sql.Date) user.getCreatedDate());
 			else 
 				throw new RARException("UserManager.save: can't save a User: createDate undefined");
             
@@ -80,7 +82,7 @@ class UserManager {
 				throw new RARException("UserManager.save: can't save a User: address undefined");
 			
 			if (user.getUserStatus() == -1) 
-				stmt.setUsterStatus(3, user.getUserStatus());
+				stmt.setUserStatus(3, user.getUserStatus());
 			else
 				throw new RARException("UserManager.save: can't save a User: userStatus undefined");
 		
@@ -147,8 +149,8 @@ class UserManager {
             else if(modelUser.getAddress() != null) 
 				query.append(" where address = '" + modelUser.getAddress() + "'");
             
-            else if(modelUser.getDateCreated() != null) 
-				query.append(" where date created = '" + modelUser.getDateCreated().toString() + "'");
+            else if(modelUser.getCreatedDate() != null) 
+				query.append(" where date created = '" + modelUser.getCreatedDate().toString() + "'");
             
             //else if(modelUser.getUserStatus() != null) 
 				//query.append(" where user status = '" + modelUser.getUserStatus() + "'");
@@ -158,7 +160,6 @@ class UserManager {
 					query.append(condition);
 				}
 			}
-		}
 		
 		try {
 			
@@ -189,7 +190,7 @@ class UserManager {
 					User user = objectLayer.createUser(firstName, lastName, userName, email, password, address, dateCreated);
 					user.setId(id);
 					
-					users.add(User);
+					users.add(user);
 				}
 				return users;
 			}
