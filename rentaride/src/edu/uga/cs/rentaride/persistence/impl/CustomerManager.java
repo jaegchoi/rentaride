@@ -16,6 +16,7 @@ import edu.uga.cs.rentaride.entity.UserStatus;
 import edu.uga.cs.rentaride.object.ObjectLayer;
 import edu.uga.cs.rentaride.RARException;
 import edu.uga.cs.rentaride.entity.Customer;
+import edu.uga.cs.rentaride.entity.Reservation;
 
 public class CustomerManager {
 	private ObjectLayer objectLayer = null;
@@ -225,6 +226,11 @@ public class CustomerManager {
 		}
 		
 		
+	}
+
+	public List<Reservation> restoreCustomerReservation(Customer customer) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
