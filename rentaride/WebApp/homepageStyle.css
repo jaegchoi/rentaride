@@ -1,0 +1,120 @@
+#tabl table{
+    border:1px solid black;
+    width:50%;
+}
+
+#tabl tr:nth-child(even){
+    background:#CCC;
+}
+
+#tabl tr:nth-child(odd){
+    background:#FFF;
+}
+
+#tabl th, tr{
+    padding:10px;
+}
+
+body {
+    padding:45px;
+    margin:45px;
+    background-image:url(../images/background.gif);
+    background-size:200px;
+
+}
+table{
+    margin-left:auto;
+    margin-right:auto;
+    width:80%;
+}
+#wrapper {
+    padding:5%;
+    background-size:10%;
+    background-color:lightgray;
+    border-radius: 10px;
+}
+
+
+#menubar {
+    /*background-color: #26A2E5;*/
+    text-align:center;
+}
+
+ul.mymenubar {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+
+}
+ 
+ul.mymenubar li {
+    display: inline;
+    float: left;
+
+}
+
+li.menu input {
+    text-decoration:none;
+    padding-top: 10px;
+    padding-bottom:10px;
+    padding-left:10px;
+    padding-right:10px;
+    /*color: #FFF;*/
+    display: block;
+    font-size: 14px;
+}
+
+li.menu:hover {
+    background-color: #F99B05;
+}
+
+
+.general {
+    text-align: justify;
+    margin-left: 20px;
+    margin-right: 20px;
+
+}
+
+.general h3 {
+    font-size: 15pt;
+    border-bottom: 1px dotted;
+}
+
+img.thisone{
+    float:right;
+    overflow:hidden;
+}
+
+
+#sidebar0{
+    clear:right;
+    float:right;
+    overflow:hidden;
+}
+
+
+ul{
+    display:inline-block;
+}
+
+input{
+    background-color: #26A2E5;
+    color: #FFF;
+    font-weight:bold;
+}
+
+textarea{
+    
+    background-color: #26A2E5;
+    color: #FFF;
+    font-weight:bold;
+}
+
+pre {
+    font-family: Sans-serif;
+    font-size:14px;
+}
+
+

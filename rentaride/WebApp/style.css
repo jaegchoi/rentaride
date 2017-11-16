@@ -1,0 +1,53 @@
+h1{
+    text-align:center;
+    font-style:italic;
+    font-size:34pt;
+    margin-left:10px;
+    margin-right:10px;
+}
+
+body{
+    padding:30px;
+    margin:30px;
+    background-image:url(../images/background.gif);
+}
+
+
+#tabl table{
+    border:1px solid black;
+    width:50%;
+}
+
+#tabl tr:nth-child(even){
+    background:#CCC;
+}
+
+#tabl tr:nth-child(odd){
+    background:#FFF;
+}
+
+#tabl th, tr{
+    padding:10px;
+}
+
+#wrapper{
+    background-color:lightgray;
+    border-radius: 10px;
+    padding-top:20px;
+    padding-bottom:10%;
+    
+}
+
+table{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#search{
+    display:block;
+    text-align:center;
+}
+
+.myForm{
+    width:200px;
+}
